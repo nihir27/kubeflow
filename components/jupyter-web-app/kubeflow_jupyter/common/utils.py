@@ -175,3 +175,15 @@ def add_notebook_volume_secret(nb, secret, secret_name, mnt_path, mode):
       "name": secret,
   }
   notebook_cont["volumeMounts"].append(mnt)
+
+
+def set_notebook_gpu_tolerations(nb):
+  notebook_spec = nb["spec"]["template"]["spec"]
+  notebook_spec["tolerations"] = [
+    {
+      'key': 'dedicated',
+      'operator': 'Equal',
+      'value': 'gpu',
+      'effect': 'NoSchedule'
+    }
+  ]

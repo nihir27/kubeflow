@@ -98,6 +98,9 @@ def post_notebook(namespace):
 
   notebook_cont['resources']['limits'] = extra
 
+  if 'nvidia' in body["extraResources"]:
+    utils.set_notebook_gpu_tolerations(notebook)
+
   # If all the parameters are given, then we try to create the notebook
   # return
   try:
